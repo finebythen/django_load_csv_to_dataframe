@@ -1,0 +1,57 @@
+{% extends 'app_csv_to_dataframe/base.html' %}
+
+{% block link %}{% endblock link %}
+
+{% block title %}Django | Load .csv-file to Dataframe{% endblock title %}
+
+{% block style %}
+
+    .container { margin: 2rem 0; }
+    form button { width: 125px; }
+    table { font-size: 0.8rem; }
+
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="myFile">
+                <button class="btn btn-success" type="submit">Laden</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">first name</th>
+                        <th scope="col">last name</th>
+                        <th scope="col">age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in json_df %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.first_name }}</td>
+                            <td>{{ item.last_name }}</td>
+                            <td>{{ item.age }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}{% endblock script %}
